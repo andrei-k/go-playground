@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"myapp/doctor"
+)
 
 func main() {
-	fmt.Println("Hello, world!")
+	var whatToSay string
+
+	whatToSay = doctor.Intro()
+
+	fmt.Println(whatToSay)
 }
