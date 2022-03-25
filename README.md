@@ -10,14 +10,14 @@ go run main.go
 
 ## Notes
 
-In VSCode, open the Command Palette and type:
-Go: /Install/Update Tools
-Select all of them an click OK
+In VSCode, open the Command Palette and type:<br>
+"Go: Install/Update Tools"<br>
+Select all checkboxes and click OK
 
-If installation fails with an error like this:
+If the installation fails with an error like this:<br>
 xcrun: error: invalid active developer path
 
-Install XCode command line by running this command in the Terminal:
+Install XCode Command Line by running this command in the Terminal:
 
 ```
 xcode-select --install
