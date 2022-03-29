@@ -4,8 +4,22 @@ Personal playground where I'll be learning and experimenting with the Go languag
 
 ## Usage
 
+Run in Terminal
+
 ```
 go run main.go     
+```
+
+Generate an executable binary on Mac OS
+
+```
+go build -o eliza main.go
+```
+
+Generate an executable binary on Windows
+
+```
+go build -o eliza.exe main.go
 ```
 
 ## Notes
