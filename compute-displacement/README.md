@@ -2,9 +2,7 @@
 
 Let us assume the following formula for displacement s as a function of time t, acceleration a, initial velocity vo, and initial displacement so.
 
-```
-s = ½ a t2 + vot + so
-```
+`s = ½ a t2 + vot + so`
 
 Write a program which first prompts the user to enter values for acceleration, initial velocity, and initial displacement. Then the program should prompt the user to enter a value for time and the program should compute the displacement after the entered time.
 
