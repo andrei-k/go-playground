@@ -10,7 +10,7 @@ The user can issue a request to find out one of three things about an animal:
 The following table contains the three animals and their associated data which should be hard-coded into your program.
 
 | Animal  | Food eaten | Locomotion method | Spoken sound |
-| :---    | :----:     | ---:              | ---:         |
+| :---    | :----:     | :---:             | :---:        |
 | cow     | grass      | walk              | moo          |
 | bird    | worms      | fly               | peep         |
 | snake   | mice       | slither           | hsss         |
