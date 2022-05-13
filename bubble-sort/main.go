@@ -40,7 +40,8 @@ func BubbleSort(sli []int) {
 	}
 }
 
-// Swap() function takes a slice of integers and an index value i which indicates a position in the slice. 	The function should return nothing, but it should swap the contents of the slice in position i with the contents in position i+1.
+// Swap() function takes a slice of integers and an index value i which indicates a position in the slice.
+// The function should return nothing, but it should swap the contents of the slice in position i with the contents in position i+1.
 func Swap(sli []int, i int) {
 	sli[i], sli[i+1] = sli[i+1], sli[i]
 }
