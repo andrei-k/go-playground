@@ -3,14 +3,14 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"myapp/doctor"
+	"myapp/eliza"
 	"os"
 	"strings"
 )
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
-	whatToSay := doctor.Intro()
+	whatToSay := eliza.Intro()
 	fmt.Println(whatToSay)
 
 	for {
@@ -28,7 +28,7 @@ func main() {
 		if userInput == "quit" {
 			break
 		} else {
-			response := doctor.Response(userInput)
+			response := eliza.Response(userInput)
 			fmt.Println(response)
 		}
 	}
