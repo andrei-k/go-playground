@@ -1,6 +1,7 @@
-# Passing data and methods to template
+# HTML Template - Hotels
 
-An examples of passing data and a method to a templates.
+A data structure passed to a template which contains information about California hotels including Name, Address, City, Zip, and Region.
+Region can be: Southern, Central, Northern
 
 ## Usage
 

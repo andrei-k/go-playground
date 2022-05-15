@@ -1,6 +1,6 @@
-# Passing data and methods to template
+# HTML Template - Class calendar
 
-An examples of passing data and a method to a templates.
+An example of passing data and methods to a template.
 
 ## Usage
 
