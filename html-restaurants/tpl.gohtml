@@ -9,8 +9,12 @@
 <body>
 	{{range .}}
 		{{.Name}}
-		{{.Region}}
-		{{.Address}}, {{.City}}, {{.Zip}}
+		{{range .Menu}}
+			{{.Name}}
+			{{range .Items}}
+				{{.Name}} - {{.Price}}
+			{{end}}
+		{{end}}
 	{{end}}
 </body>
 </html>
