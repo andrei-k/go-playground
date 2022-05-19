@@ -7,11 +7,12 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 // Define the struct for each record (line) from the CSV
 type Record struct {
-	Date                                     string
+	Date                                     time.Time
 	Open, High, Low, Close, Volume, AdjClose float64
 }
 
@@ -34,10 +35,17 @@ func main() {
 	var records Records
 
 	// Read each line of the CSV and create a struct with the fields
-	for _, line := range strings.Split(string(data), "\n") {
-		var record Record
-		record.Date = strings.Split(line, ",")[0]
+	for i, line := range strings.Split(string(data), "\n") {
+		// Skip the first line
+		if i == 0 {
+			continue
+		}
 
+		var record Record
+
+		if date, err := time.Parse("2006-01-02", strings.Split(line, ",")[0]); err == nil {
+			record.Date = date
+		}
 		if open, err := strconv.ParseFloat(strings.Split(line, ",")[1], 64); err == nil {
 			record.Open = open
 		}
