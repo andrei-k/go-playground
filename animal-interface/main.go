@@ -45,7 +45,6 @@ func main() {
 		Sound:     "woof",
 		NumOfLegs: 4,
 	}
-
 	Riddle(&dog)
 
 	var cat Cat
@@ -53,11 +52,26 @@ func main() {
 	cat.NumOfLegs = 4
 	cat.Sound = "meow"
 	cat.HasTail = true
-
 	Riddle(&cat)
 }
 
 func Riddle(a Animal) {
 	riddle := fmt.Sprintf(`This animal says %s and has %d legs. What animal is it?`, a.Says(), a.HowManyLegs())
 	fmt.Println(riddle)
+
+	// Type assertion for disambiguation
+	// Check if a is a Cat
+	cat, ok := a.(*Cat)
+	if ok {
+		fmt.Println("It's a cat!")
+		fmt.Println(cat.Says())
+	}
+
+	// If there are many types, use type switch
+	switch a.(type) {
+	case *Dog:
+		fmt.Println("It's a dog!")
+	case *Cat:
+		fmt.Println("It's a cat!")
+	}
 }
