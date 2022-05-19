@@ -1,4 +1,4 @@
-# Bubble Sort
+# Animals
 
 Write a program which allows the user to get information about a predefined set of animals. Three animals are predefined, cow, bird, and snake. Each animal can eat, move, and speak.
 
