@@ -1,4 +1,4 @@
-# Make JSON
+# Read File
 
 This program reads information from a file and represents it in a slice of structs. The text file contains a series of names (first name and last name) on separate lines.
 

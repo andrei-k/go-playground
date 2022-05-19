@@ -1,4 +1,4 @@
-# Bubble Sort
+# Computer Displacement
 
 Let us assume the following formula for displacement s as a function of time t, acceleration a, initial velocity vo, and initial displacement so.
 
