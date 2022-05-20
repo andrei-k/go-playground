@@ -2,72 +2,118 @@ package main
 
 import (
 	"fmt"
-
-	"golang.org/x/exp/slices"
 )
 
-type Animal struct {
-	Food, Locomotion, Sound string
+// Define an interface type which describes the methods of an animal
+type animal interface {
+	eat()
+	move()
+	speak()
+	getName() string
 }
 
-func (a Animal) Eat() {
-	fmt.Println(a.Food)
+// Define three types Cow, Bird, and Snake. For each of these three types, define methods Eat(), Move(), and Speak() so that the types Cow, Bird, and Snake all satisfy the Animal interface.
+type cow struct {
+	name string
 }
 
-func (a Animal) Move() {
-	fmt.Println(a.Locomotion)
+func (a cow) eat() {
+	fmt.Println("grass")
+}
+func (a cow) move() {
+	fmt.Println("walk")
+}
+func (a cow) speak() {
+	fmt.Println("moo")
+}
+func (a cow) getName() string {
+	return a.name
 }
 
-func (a Animal) Speak() {
-	fmt.Println(a.Sound)
+type bird struct {
+	name string
 }
 
-type MyAnimal struct {
-	Name, Animal string
+func (a bird) eat() {
+	fmt.Println("worms")
+}
+func (a bird) move() {
+	fmt.Println("fly")
+}
+func (a bird) speak() {
+	fmt.Println("peep")
+}
+func (a bird) getName() string {
+	return a.name
+}
+
+type snake struct {
+	name string
+}
+
+func (a snake) eat() {
+	fmt.Println("mice")
+}
+func (a snake) move() {
+	fmt.Println("slither")
+}
+func (a snake) speak() {
+	fmt.Println("hsss")
+}
+func (a snake) getName() string {
+	return a.name
 }
 
 func main() {
-	var animals = make(map[string]Animal)
-	animals["cow"] = Animal{"grass", "walk", "moo"}
-	animals["bird"] = Animal{"worms", "fly", "peep"}
-	animals["snake"] = Animal{"mice", "slither", "hsss"}
-
-	fmt.Println(animals)
-
-	var myAnimals []MyAnimal
+	var animals []animal
 
 	for {
-		var command, name, animal string
+		var command, name, input string
 		fmt.Print("> ")
-		fmt.Scan(&command, &name, &animal)
-		fmt.Println("You typed:", command, name, animal)
+		fmt.Scan(&command, &name, &input)
 
-		// Each “newanimal” command must be a single line containing three strings.
-		// The first string is “newanimal”
-		// The second string is an arbitrary string which will be the name of the new animal
-		// The third string is the type of the new animal, either “cow”, “bird”, or “snake”.
-		// Your program should process each newanimal command by creating the new animal.
-
-		if command == "new" {
-			myAnimals = append(myAnimals, MyAnimal{name, animal})
-			fmt.Println("Created it!")
-		}
-
-		// Each “query” command must be a single line containing 3 strings
-		// The first string is “query”
-		// The second string is the name of the animal
-		// The third string is the name of the information requested about the animal, either “eat”, “move”, or “speak”
-		// Your program should process each query command by printing out the requested data
-		if command == "query" {
-			fmt.Println(myAnimals)
-
-			idx := slices.IndexFunc(myAnimals, func(m MyAnimal) bool { return m.Name == name })
-			if idx > -1 {
-				a := myAnimals[idx].Animal
-				fmt.Println(name, "is a", a)
-				animals[a].Speak()
+		// Create an object of the appropriate type
+		if command == "newanimal" {
+			switch input {
+			case "cow":
+				cow := cow{name: name}
+				animals = append(animals, cow)
+				fmt.Println(cow.name)
+			case "bird":
+				bird := bird{name: name}
+				animals = append(animals, bird)
+			case "snake":
+				snake := snake{name: name}
+				animals = append(animals, snake)
+			default:
+				fmt.Println("Please enter 'cow', 'bird', or 'snake'")
+				continue
 			}
+			fmt.Println("Created it!")
+
+		} else if command == "query" {
+			found := false
+			for _, a := range animals {
+				if a.getName() == name {
+					switch input {
+					case "eat":
+						a.eat()
+					case "move":
+						a.move()
+					case "speak":
+						a.speak()
+					default:
+						fmt.Println("Please enter 'eat', 'move', or 'speak'")
+					}
+					found = true
+				}
+			}
+			if !found {
+				fmt.Println("No animal found by this name!")
+			}
+
+		} else {
+			fmt.Println("Please start the command with 'newanimal' or 'query'")
 		}
 	}
-
 }
