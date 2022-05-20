@@ -73,7 +73,7 @@ func main() {
 		fmt.Scan(&command, &name, &input)
 
 		// Create an object of the appropriate type
-		if command == "newanimal" {
+		if command == "new" {
 			switch input {
 			case "cow":
 				cow := cow{name: name}
