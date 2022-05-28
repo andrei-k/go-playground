@@ -3,30 +3,55 @@ package main
 import (
 	"fmt"
 	"net"
-	"sync"
+	"sort"
 )
 
-func main() {
-	// Synchronized counter
-	var wg sync.WaitGroup
-
-	for i := 1; i <= 65535; i++ {
-		wg.Add(1) // Increment counter for each new goroutine
-
-		go func(j int) {
-			defer wg.Done() // Decrement counter when goroutine completes
-
-			// Scan all ports on localhost
-			address := fmt.Sprintf("127.0.0.1:%d", j)
-			conn, err := net.Dial("tcp", address)
-			if err != nil {
-				// Port is closed or filtered
-				return
-			}
-			conn.Close()
-			fmt.Printf("%d open\n", j)
-		}(i)
+func worker(ports, results chan int) {
+	for p := range ports {
+		address := fmt.Sprintf("127.0.0.1:%d", p)
+		conn, err := net.Dial("tcp", address)
+		if err != nil {
+			// Port is closed or filtered
+			results <- 0
+			continue
+		}
+		conn.Close()
+		results <- p
 	}
-	// Wait for all goroutines to finish
-	wg.Wait()
+}
+
+func main() {
+	// Create a buffered channel with a capacity of 100
+	ports := make(chan int, 100)
+	results := make(chan int)
+	var openPorts []int
+
+	fmt.Println("Start scanning...")
+
+	for i := 0; i <= cap(ports); i++ {
+		go worker(ports, results)
+	}
+
+	go func() {
+		for i := 1; i <= 65535; i++ {
+			ports <- i
+		}
+	}()
+
+	for i := 0; i < 65535; i++ {
+		port := <-results
+		if port != 0 {
+			openPorts = append(openPorts, port)
+		}
+	}
+
+	close(ports)
+	close(results)
+
+	sort.Ints(openPorts)
+	for _, port := range openPorts {
+		fmt.Printf("%d open\n", port)
+	}
+
+	fmt.Println("Scan finished.")
 }
