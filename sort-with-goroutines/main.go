@@ -35,7 +35,7 @@ func main() {
 
 	for i, val := range intString {
 		integer, err := strconv.Atoi(val)
-		// Inputs that aren't integers will be ignored
+		// Input that isn't an integer will be ignored
 		if err == nil {
 			// Create 4 partitions of integers
 			key = i % 4
@@ -49,7 +49,7 @@ func main() {
 	if len(chunks) > 0 {
 		var final []int
 
-		// Send each partition to goroutines for sorting
+		// Send each partition to a goroutine for sorting
 		for i := 0; i < len(chunks); i++ {
 			go sortPartition(chunks[i], result)
 		}
@@ -62,6 +62,6 @@ func main() {
 		// Sort the final slice
 		// Note that the point of this program is to practice goroutines rather than finding most efficient ways to merge slices into a sorted one
 		sort.Ints(final)
-		fmt.Println("final:", final)
+		fmt.Println("Final:", final)
 	}
 }
