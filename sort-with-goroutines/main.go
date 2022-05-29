@@ -10,7 +10,7 @@ import (
 )
 
 func getInput() string {
-	fmt.Println("Type a series of integers separated by spaces")
+	fmt.Println("Type integers separated by spaces and press enter to sort them.")
 	fmt.Print("-> ")
 
 	reader := bufio.NewReader(os.Stdin)
@@ -20,16 +20,18 @@ func getInput() string {
 	return userInput
 }
 
-func sortPartition(partition []int, result chan []int) {
+func sortPartition(partition []int, channel chan []int) {
 	sort.Ints(partition)
 	fmt.Println("Sorted partition:", partition)
-	result <- partition
+	// Send data to the channel
+	channel <- partition
 }
 
 func main() {
 	userInput := getInput()
 	intString := strings.Split(userInput, " ")
 
+	// Holds partitions of the input
 	chunks := make(map[int][]int)
 	var key int
 
@@ -44,19 +46,20 @@ func main() {
 	}
 
 	// Create a buffered channel with a capacity of 4
-	result := make(chan []int, 4)
+	channel := make(chan []int, 4)
 
 	if len(chunks) > 0 {
 		var final []int
 
 		// Send each partition to a goroutine for sorting
 		for i := 0; i < len(chunks); i++ {
-			go sortPartition(chunks[i], result)
+			go sortPartition(chunks[i], channel)
 		}
 
 		// Receive the sorted partitions from the goroutines
 		for i := 0; i < len(chunks); i++ {
-			final = append(final, <-result...)
+			// Receive data from the channel
+			final = append(final, <-channel...)
 		}
 
 		// Sort the final slice
