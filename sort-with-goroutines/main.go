@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -19,8 +20,10 @@ func getInput() string {
 	return userInput
 }
 
-func sort(part []int) {
-	fmt.Println("part:", part)
+func sortPartition(partition []int, result chan []int) {
+	sort.Ints(partition)
+	fmt.Println("Sorted partition:", partition)
+	result <- partition
 }
 
 func main() {
@@ -40,14 +43,25 @@ func main() {
 		}
 	}
 
-	fmt.Println("chunks:", chunks)
+	// Create a buffered channel with a capacity of 4
+	result := make(chan []int, 4)
 
 	if len(chunks) > 0 {
-		fmt.Println("length:", len(chunks))
+		var final []int
 
 		// Send each partition to goroutines for sorting
-		sort(chunks[0])
+		for i := 0; i < len(chunks); i++ {
+			go sortPartition(chunks[i], result)
+		}
 
-		// Then the main goroutine merges the 4 sorted subarrays into one sorted array
+		// Receive the sorted partitions from the goroutines
+		for i := 0; i < len(chunks); i++ {
+			final = append(final, <-result...)
+		}
+
+		// Sort the final slice
+		// Note that the point of this program is to practice goroutines rather than finding most efficient ways to merge slices into a sorted one
+		sort.Ints(final)
+		fmt.Println("final:", final)
 	}
 }
