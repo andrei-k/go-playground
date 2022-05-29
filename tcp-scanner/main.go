@@ -39,7 +39,7 @@ func main() {
 		go worker(ports, results)
 	}
 
-	// Sending all port values to the workers as a separate goroutine so the result-gathering loop below can start concurrently
+	// Send all port values to the workers as a separate goroutine so the result-gathering loop below can start concurrently
 	go func() {
 		for i := 1; i <= 65535; i++ {
 			ports <- i
