@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// TODO: explain purpose of this struct
 type Channel struct {
 	samples int
 	result  float64
@@ -36,6 +37,7 @@ func calcPi(samples int) float64 {
 
 // Calculate Pi using concurrent goroutines
 func calcPiConcurrent(samples int, ch chan Channel) {
+	// TODO: do this calculation by calling the function above
 	var inside int = 0
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 
@@ -70,6 +72,8 @@ func main() {
 
 	for i := 0; i < threads; i++ {
 		output := <-ch // Receive result from channel
+		// TODO: render output as a function
+
 		fmt.Print("Samples: ", output.samples)
 		// Adjust spaces for formatting
 		fmt.Printf("%s", strings.Repeat(" ", 12-int(math.Log10(float64(output.samples)))))
@@ -83,6 +87,8 @@ func main() {
 	for i := 1; i <= threads; i++ {
 		// Start with 10 samples and go up to 100,000,000
 		samples = math.Pow(10, float64(i))
+		// TODO: render output as a function
+
 		fmt.Print("Samples: ", int(samples))
 		// Adjust spaces for formatting
 		fmt.Printf("%s", strings.Repeat(" ", 12-i))
