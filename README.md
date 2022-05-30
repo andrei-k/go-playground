@@ -1,6 +1,6 @@
 # Playground with Go
 
-Personal playground where I'll be learning and experimenting with the Go language.
+Personal playground where I'll experimenting with various concepts and small projects using the Go language.
 
 ## Notes
 
