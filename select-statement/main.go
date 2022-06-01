@@ -34,7 +34,6 @@ func task3() {
 }
 
 func main() {
-	// Start tasks as goroutines
 	go task1()
 	go task2()
 
@@ -44,6 +43,21 @@ func main() {
 		fmt.Println("received", msg1)
 	case msg2 := <-chan2:
 		fmt.Println("received", msg2)
+	}
+
+	fmt.Println("-------------------")
+
+	go task1()
+	go task2()
+
+	// In this case, the select statement includes a default. When nothing is received from the channels, the default is executed and the select is no longer blocking.
+	select {
+	case msg1 := <-chan1:
+		fmt.Println("received", msg1)
+	case msg2 := <-chan2:
+		fmt.Println("received", msg2)
+	default:
+		fmt.Println("no message received")
 	}
 
 	fmt.Println("-------------------")
