@@ -11,20 +11,20 @@ type Counter struct {
 	counter int
 }
 
-// This is a bad example where the counter will likely be out of order due to non-deterministic interleaving
+// This is a bad example where the counter will likely be incremented out of order due to non-deterministic interleaving
 func (c *Counter) increment1(wg *sync.WaitGroup) {
 	c.counter++
 	fmt.Println("x:", c.counter)
 	wg.Done()
 }
 
-// The counter will be in order because of the mutex
+// The counter will be incremented in order because of the mutex
 func (c *Counter) increment2(wg *sync.WaitGroup) {
 	c.mutex.Lock()
+	defer c.mutex.Unlock()
 	c.counter++
 	fmt.Println("x:", c.counter)
 	wg.Done()
-	c.mutex.Unlock()
 }
 
 func main() {
