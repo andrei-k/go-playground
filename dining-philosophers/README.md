@@ -1,8 +1,7 @@
 # Dining Philosopher’s Problem
 
 
-Dining philosophers is a classic problem involving concurrency and synchronization.  
-
+Dining philosophers is a classic problem involving concurrency and synchronization. 
 https://en.wikipedia.org/wiki/Dining_philosophers_problem  
 
 This program implement's the problem with the following constraints/modifications.  
