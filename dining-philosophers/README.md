@@ -1,6 +1,11 @@
 # Dining Philosopher’s Problem
 
-Implement the dining philosopher’s problem with the following constraints/modifications.
+
+Dining philosophers is a classic problem involving concurrency and synchronization.  
+
+https://en.wikipedia.org/wiki/Dining_philosophers_problem  
+
+This program implement's the problem with the following constraints/modifications.  
 
 1. There should be 5 philosophers sharing chopsticks, with one chopstick between each adjacent pair of philosophers.
 
@@ -8,7 +13,7 @@ Implement the dining philosopher’s problem with the following constraints/modi
 
 3. The philosophers pick up the chopsticks in any order.
 
-4. In order to eat, a philosopher must get permission from a host which executes in its own goroutine.
+4. In order to eat, a philosopher must get permission from a **host** which executes in its own goroutine.
 
 5. The host allows no more than 2 philosophers to eat concurrently.
 
