@@ -18,17 +18,23 @@ type Philosopher struct {
 	rightChopstick *Chopstick
 }
 
-func (p *Philosopher) Eat() {
+func (p *Philosopher) Eat(hostCh chan bool) {
 	// Each philosopher should eat 3 times
 	for i := 0; i < 3; i++ {
-		fmt.Printf("Philosopher %d is starting to eat\n", p.number)
+		// Block channel while a philosopher is eating
+		<-hostCh
+
+		fmt.Printf("Philosopher %d is eating\n", p.number)
 		p.leftChopstick.Lock()
 		p.rightChopstick.Lock()
-		time.Sleep(500 * time.Millisecond)
+		time.Sleep(time.Second) // Add a little delay
 		p.eatCount++
 		fmt.Printf("Philosopher %d finished eating %d/3\n", p.number, p.eatCount)
 		p.leftChopstick.Unlock()
 		p.rightChopstick.Unlock()
+
+		// Send a value and free up the channel
+		hostCh <- true
 	}
 	wg.Done()
 }
@@ -45,7 +51,6 @@ func main() {
 
 	// Initialize philosophers
 	philosophers := make([]Philosopher, 5)
-
 	for i := 0; i < 5; i++ {
 		leftStick := chopsticks[i]
 		rightStick := chopsticks[(i+1)%5]
@@ -59,10 +64,15 @@ func main() {
 		}
 	}
 
+	// Host allows 2 philosophers to eat concurrently
+	hostCh := make(chan bool, 2)
+	hostCh <- true
+	hostCh <- true
+
+	// Each philosopher starts eating
 	for i := 0; i < 5; i++ {
 		wg.Add(1)
-		// Each philosopher starts eating
-		go philosophers[i].Eat()
+		go philosophers[i].Eat(hostCh)
 	}
 
 	wg.Wait()
