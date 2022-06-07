@@ -11,7 +11,7 @@ This program implement's the problem with the following constraints/modification
 
 2. Each philosopher should eat only 3 times.
 
-3. The philosophers pick up the chopsticks in any order.
+3. The philosophers pick up the chopsticks in any order. (Not done)
 
 4. In order to eat, a philosopher must get permission from a **host** which executes in its own goroutine.
 
