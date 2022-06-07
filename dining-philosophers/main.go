@@ -46,6 +46,7 @@ func main() {
 	var chopsticks = make([]*Chopstick, 5)
 	for i := 0; i < 5; i++ {
 		// Assign type *Chopstick
+		// new() function creates a variable and returns a pointer to that variable
 		chopsticks[i] = new(Chopstick)
 	}
 
