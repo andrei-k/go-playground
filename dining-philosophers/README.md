@@ -1,5 +1,6 @@
 # Dining Philosopher’s Problem
 
+There are 5 philosophers sitting at a round table. 1 chopstick is placed between each adjacent pair. Each philosopher wants to eat rice from their plate, but needs 2 chopsticks. Only one philosopher can hold a chopstick at a time and there are not enough chopsticks for everyone to eat at once.
 
 Dining philosophers is a classic problem involving concurrency and synchronization. 
 https://en.wikipedia.org/wiki/Dining_philosophers_problem  
