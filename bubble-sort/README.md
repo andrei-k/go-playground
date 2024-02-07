@@ -10,6 +10,6 @@ A recurring operation in the bubble sort algorithm is the Swap operation which s
 
 Run in Terminal
 
-```go
+```
 go run .     
 ```
