@@ -8,10 +8,9 @@ Initialize the project by running this command in the terminal:
 go mod init graph-plotter
 ```
 
-Install the Gonum plot library
-
+Add module requirements necessary to build the packages and dependencies
 ```
-go get -u gonum.org/v1/plot/...
+go mod tidy
 ```
 
 ## Usage
