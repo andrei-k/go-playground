@@ -15,7 +15,7 @@ type DataPoint struct {
 }
 
 func main() {
-	// Define the data points
+	// Define the data points (unique users)
 	data := []DataPoint{
 		{xVal: 2017, yVal: 21828},
 		{xVal: 2018, yVal: 30340},
@@ -25,6 +25,24 @@ func main() {
 		{xVal: 2022, yVal: 41283},
 		{xVal: 2023, yVal: 44251},
 	}
+
+	/*
+		// Define the data points (sessions)
+		data := []DataPoint{
+			{xVal: 2021, yVal: 1096848},
+			{xVal: 2022, yVal: 1560869},
+			{xVal: 2023, yVal: 1746767},
+		}
+	*/
+
+	/*
+		// Define the data points (total hours on app)
+		data := []DataPoint{
+			{xVal: 2021, yVal: 27614},
+			{xVal: 2022, yVal: 70828},
+			{xVal: 2023, yVal: 81917},
+		}
+	*/
 
 	// Extract x and y values from the data points
 	var xVals []int
