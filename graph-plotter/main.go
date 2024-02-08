@@ -8,6 +8,7 @@ import (
 	"github.com/go-echarts/go-echarts/v2/types"
 )
 
+// Define the data point on the chart
 type DataPoint struct {
 	xVal int
 	yVal float64
@@ -50,12 +51,7 @@ func main() {
 		{xVal: 2023, yVal: 44251},
 	}
 
-	// // Print the data points
-	// for _, dp := range data {
-	// 	fmt.Printf("Year: %d, Value: %.2f\n", dp.Year, dp.Value)
-	// }
-
-	// Extract x (years) and y (usage total) values from the data map
+	// Extract x and y values from the data points
 	var xVals []int
 	yVals := make([]opts.LineData, 0)
 
