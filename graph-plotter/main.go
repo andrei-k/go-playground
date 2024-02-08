@@ -8,7 +8,7 @@ import (
 	"github.com/go-echarts/go-echarts/v2/types"
 )
 
-// Define the data point on the chart
+// Define the struct representing a data point on the chart
 type DataPoint struct {
 	xVal int
 	yVal float64
@@ -88,4 +88,6 @@ func main() {
 	// Render the output to a file
 	f, _ := os.Create("plot.html")
 	line.Render(f)
+
+	println("The plot was created in the file plot.html")
 }
