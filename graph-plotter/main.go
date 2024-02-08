@@ -1,14 +1,23 @@
 package main
 
 import (
-	"fmt"
-	"log"
+	"math/rand"
+	"os"
 	"sort"
 
-	"gonum.org/v1/plot"
-	"gonum.org/v1/plot/plotter"
-	"gonum.org/v1/plot/vg"
+	"github.com/go-echarts/go-echarts/v2/charts"
+	"github.com/go-echarts/go-echarts/v2/opts"
+	"github.com/go-echarts/go-echarts/v2/types"
 )
+
+// generate random data for line chart
+func generateLineItems() []opts.LineData {
+	items := make([]opts.LineData, 0)
+	for i := 0; i < 7; i++ {
+		items = append(items, opts.LineData{Value: rand.Intn(300)})
+	}
+	return items
+}
 
 func main() {
 	// Define the data
@@ -22,7 +31,7 @@ func main() {
 		2023: 44251,
 	}
 
-	// Extract x (years) and y (totals) values from the data map
+	// Extract x (years) and y (usage total) values from the data map
 	var years []int
 	var totals []float64
 	for year, total := range data {
@@ -33,31 +42,24 @@ func main() {
 	// Sort the years
 	sort.Ints(years)
 
-	// Create a new plot
-	p := plot.New()
+	// Create a new line instance
+	line := charts.NewLine()
 
-	// Create a line plotter
-	line, err := plotter.NewLine(plotter.XYs{})
-	if err != nil {
-		log.Fatalf("Could not create line plotter: %v", err)
-	}
+	// Set some global options like Title/Legend/ToolTip or anything else
+	line.SetGlobalOptions(
+		charts.WithInitializationOpts(opts.Initialization{Theme: types.ThemeWesteros}),
+		charts.WithTitleOpts(opts.Title{
+			Title:    "Line example in Westeros theme",
+			Subtitle: "Line chart rendered by the http server this time",
+		}))
 
-	// Add the data to the line plotter
-	for i, year := range years {
-		line.XYs = append(line.XYs, struct{ X, Y float64 }{float64(year), totals[i]})
-	}
+	// Put data into instance
+	line.SetXAxis([]string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}).
+		AddSeries("Category A", generateLineItems()).
+		AddSeries("Category B", generateLineItems()).
+		SetSeriesOptions(charts.WithLineChartOpts(opts.LineChart{Smooth: true}))
 
-	// Add the line plotter to the plot
-	p.Add(line)
-
-	// Set the title and labels
-	p.Title.Text = "Totals over years"
-	p.X.Label.Text = "Year"
-	p.Y.Label.Text = "Totals"
-
-	// Save the plot to a file
-	if err := p.Save(8*vg.Inch, 4*vg.Inch, "plot.png"); err != nil {
-		log.Fatalf("Could not save plot: %v", err)
-	}
-	fmt.Println("Plot saved to plot.png")
+	// Where the magic happens
+	f, _ := os.Create("bar.html")
+	line.Render(f)
 }
