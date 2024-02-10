@@ -6,7 +6,7 @@ Verify that you've installed Go and it's up to date by running this command in t
 go version
 ```
 
-If Go it not installed or isn't up to date, follow the instructions on the [official Go website](https://golang.org/doc/install).
+If Go is not installed or isn't up to date, follow the instructions on the [official Go website](https://golang.org/doc/install).
 
 Close the terminal and open a new one to ensure that the changes take effect. However, if `go version` returns an `command not found: go`, you need to add the PATH to the `~/.zshrc` file.
 
